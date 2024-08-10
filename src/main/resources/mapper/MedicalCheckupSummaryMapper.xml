@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cykj.mapper.MedicalCheckupSummaryMapper">
+  <resultMap id="BaseResultMap" type="com.cykj.model.pojo.MedicalCheckupSummary">
+    <!--@mbg.generated-->
+    <!--@Table medical_checkup_summary-->
+    <id column="cs_id" jdbcType="INTEGER" property="csId" />
+    <result column="cs_order_id" jdbcType="INTEGER" property="csOrderId" />
+    <result column="cs_summary" jdbcType="LONGVARCHAR" property="csSummary" />
+    <result column="cs_staff_id" jdbcType="INTEGER" property="csStaffId" />
+    <result column="cs_time" jdbcType="TIMESTAMP" property="csTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    cs_id, cs_order_id, cs_summary, cs_staff_id, cs_time
+  </sql>
+</mapper>

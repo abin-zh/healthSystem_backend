@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+    <context:component-scan base-package="com.cykj" />
+
+    <!--  fastjson 消息转换器  -->
+    <bean id="messageConverter" class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+        <property name="supportedMediaTypes">
+            <list>
+                <value>application/json</value>
+                <value>text/html;charset=utf-8</value>
+            </list>
+        </property>
+    </bean>
+
+    <!--  加载注解驱动  -->
+    <mvc:annotation-driven>
+        <!--  配置消息转换器，使用fastjson  -->
+        <mvc:message-converters>
+            <ref bean="messageConverter" />
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <mvc:default-servlet-handler />
+
+    <!--  开启AOP支持  -->
+    <aop:aspectj-autoproxy proxy-target-class="true" />
+</beans>

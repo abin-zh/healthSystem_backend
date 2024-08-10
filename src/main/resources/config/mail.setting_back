@@ -1,0 +1,6 @@
+host=smtp.qq.com
+port=465
+from=#发送人邮箱
+user=#服务邮箱
+pass=#授权码
+sslEnable = true

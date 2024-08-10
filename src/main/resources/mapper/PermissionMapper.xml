@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cykj.mapper.PermissionMapper">
+  <resultMap id="BaseResultMap" type="com.cykj.model.pojo.Permission">
+    <!--@mbg.generated-->
+    <!--@Table permission-->
+    <id column="perm_id" jdbcType="INTEGER" property="permId" />
+    <result column="perm_menu_id" jdbcType="INTEGER" property="permMenuId" />
+    <result column="perm_role_id" jdbcType="INTEGER" property="permRoleId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    perm_id, perm_menu_id, perm_role_id
+  </sql>
+</mapper>

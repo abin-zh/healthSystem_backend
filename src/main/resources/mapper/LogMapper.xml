@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cykj.mapper.LogMapper">
+  <resultMap id="BaseResultMap" type="com.cykj.model.pojo.Log">
+    <!--@mbg.generated-->
+    <!--@Table log-->
+    <id column="log_id" jdbcType="INTEGER" property="logId" />
+    <result column="log_staff_id" jdbcType="INTEGER" property="logStaffId" />
+    <result column="log_time" jdbcType="TIMESTAMP" property="logTime" />
+    <result column="log_operation" jdbcType="VARCHAR" property="logOperation" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    log_id, log_staff_id, log_time, log_operation
+  </sql>
+</mapper>
