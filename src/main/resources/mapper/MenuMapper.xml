@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cykj.mapper.MenuMapper">
+  <resultMap id="BaseResultMap" type="com.cykj.model.pojo.Menu">
+    <!--@mbg.generated-->
+    <!--@Table menu-->
+    <id column="menu_id" jdbcType="INTEGER" property="id" />
+    <result column="menu_name" jdbcType="VARCHAR" property="name" />
+    <result column="menu_component" jdbcType="VARCHAR" property="component" />
+    <result column="menu_path" jdbcType="VARCHAR" property="path" />
+    <result column="menu_parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="menu_is_deleted" jdbcType="BOOLEAN" property="menuIsDeleted" />
+    <result column="menu_status" jdbcType="BOOLEAN" property="menuStatus" />
+    <result column="menu_sort" jdbcType="INTEGER" property="order" />
+    <result column="menu_redirect" jdbcType="VARCHAR" property="redirect" />
+    <association property="meta" javaType="com.cykj.model.pojo.Meta" >
+      <result column="menu_title" jdbcType="VARCHAR" property="title" />
+      <result column="menu_icon"  jdbcType="VARCHAR" property="icon" />
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    menu_id, menu_name, menu_component, menu_path, menu_icon, menu_parent_id, menu_is_deleted, 
+    menu_status, menu_sort, menu_redirect, menu_title
+  </sql>
+
+  <select id="findAllByRoleId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List">
+    </include>
+    from menu
+    join healthsystem.permission p on menu.menu_id = p.perm_menu_id
+    where perm_role_id = #{roleId}
+  </select>
+</mapper>

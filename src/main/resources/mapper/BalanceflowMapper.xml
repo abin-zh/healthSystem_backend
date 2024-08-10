@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cykj.mapper.BalanceflowMapper">
+  <resultMap id="BaseResultMap" type="com.cykj.model.pojo.Balanceflow">
+    <!--@mbg.generated-->
+    <!--@Table balanceflow-->
+    <id column="flow_id" jdbcType="INTEGER" property="flowId" />
+    <result column="flow_user_id" jdbcType="INTEGER" property="flowUserId" />
+    <result column="flow_time" jdbcType="TIMESTAMP" property="flowTime" />
+    <result column="flow_type" jdbcType="VARCHAR" property="flowType" />
+    <result column="flow_amount" jdbcType="DECIMAL" property="flowAmount" />
+    <result column="flow_description" jdbcType="LONGVARCHAR" property="flowDescription" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    flow_id, flow_user_id, flow_time, flow_type, flow_amount, flow_description
+  </sql>
+</mapper>

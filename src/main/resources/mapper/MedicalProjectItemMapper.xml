@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cykj.mapper.MedicalProjectItemMapper">
+  <resultMap id="BaseResultMap" type="com.cykj.model.pojo.MedicalProjectItem">
+    <!--@mbg.generated-->
+    <!--@Table medical_project_item-->
+    <id column="pi_id" jdbcType="INTEGER" property="piId" />
+    <result column="pi_project_id" jdbcType="INTEGER" property="piProjectId" />
+    <result column="pi_item_id" jdbcType="INTEGER" property="piItemId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    pi_id, pi_project_id, pi_item_id
+  </sql>
+</mapper>

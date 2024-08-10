@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cykj.mapper.MedicalItemCheckResultsMapper">
+  <resultMap id="BaseResultMap" type="com.cykj.model.pojo.MedicalItemCheckResults">
+    <!--@mbg.generated-->
+    <!--@Table medical_item_check_results-->
+    <id column="icr_id" jdbcType="INTEGER" property="icrId" />
+    <result column="icr_item_id" jdbcType="INTEGER" property="icrItemId" />
+    <result column="icr_result" jdbcType="VARCHAR" property="icrResult" />
+    <result column="icr_order_id" jdbcType="INTEGER" property="icrOrderId" />
+    <result column="icr_staff_id" jdbcType="INTEGER" property="icrStaffId" />
+    <result column="icr_time" jdbcType="TIMESTAMP" property="icrTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    icr_id, icr_item_id, icr_result, icr_order_id, icr_staff_id, icr_time
+  </sql>
+</mapper>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cykj.mapper.OrderDetailsMapper">
+  <resultMap id="BaseResultMap" type="com.cykj.model.pojo.OrderDetails">
+    <!--@mbg.generated-->
+    <!--@Table order_details-->
+    <id column="od_id" jdbcType="INTEGER" property="odId" />
+    <result column="od_order_number" jdbcType="VARCHAR" property="odOrderNumber" />
+    <result column="od_project_id" jdbcType="INTEGER" property="odProjectId" />
+    <result column="od_type" jdbcType="INTEGER" property="odType" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    od_id, od_order_number, od_project_id, od_type
+  </sql>
+</mapper>

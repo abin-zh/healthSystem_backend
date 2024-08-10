@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cykj.mapper.MedicalProjectSummaryMapper">
+  <resultMap id="BaseResultMap" type="com.cykj.model.pojo.MedicalProjectSummary">
+    <!--@mbg.generated-->
+    <!--@Table medical_project_summary-->
+    <id column="ps_id" jdbcType="INTEGER" property="psId" />
+    <result column="ps_order_id" jdbcType="INTEGER" property="psOrderId" />
+    <result column="ps_project_id" jdbcType="INTEGER" property="psProjectId" />
+    <result column="ps_summary" jdbcType="LONGVARCHAR" property="psSummary" />
+    <result column="ps_staff_id" jdbcType="INTEGER" property="psStaffId" />
+    <result column="time" jdbcType="TIMESTAMP" property="time" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ps_id, ps_order_id, ps_project_id, ps_summary, ps_staff_id, `time`
+  </sql>
+</mapper>
