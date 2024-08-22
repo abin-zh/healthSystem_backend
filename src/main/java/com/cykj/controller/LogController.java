@@ -1,22 +1,30 @@
 package com.cykj.controller;
+import com.cykj.model.dto.ResponseDTO;
 import com.cykj.model.pojo.Log;
-import com.cykj.service.impl.LogServiceImpl;
+import com.cykj.model.vo.PageVO;
+import com.cykj.service.LogService;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
-* (log)表控制层
+* 日志控制层
 *
-* @author xxxxx
+* @author abin
 */
 @RestController
 @RequestMapping("/log")
 public class LogController {
-/**
-* 服务对象
-*/
-    @Autowired
-    private LogServiceImpl logServiceImpl;
 
+    private LogService logService;
+
+    @Autowired
+    public LogController(LogService logService) {
+        this.logService = logService;
+    }
+
+    @PostMapping("search")
+    public ResponseDTO search(PageVO<Log> vo){
+        return logService.getLogs(vo);
+    }
 }

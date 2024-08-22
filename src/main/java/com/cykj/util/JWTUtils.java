@@ -16,7 +16,7 @@ public class JWTUtils {
 
     private static String secretKey = "REDACTED_JWT_SECRET_KEY";
 
-    private static long expire = 1000 * 60 * 60;
+    private static long expire = 1000 * 60 * 60 * 7 * 24;
 
     /**
      * 生成token

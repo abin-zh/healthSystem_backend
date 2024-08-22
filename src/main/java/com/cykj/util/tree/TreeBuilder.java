@@ -6,6 +6,7 @@ import com.cykj.model.pojo.Menu;
 import java.util.*;
 
 /**
+ * 构建树工具类
  * @author abin
  * @date 2024/7/20 22:38
  */

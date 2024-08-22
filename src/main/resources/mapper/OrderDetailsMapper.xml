@@ -13,4 +13,9 @@
     <!--@mbg.generated-->
     od_id, od_order_number, od_project_id, od_type
   </sql>
+
+  <insert id="addOneOrderDetail">
+    insert into order_details(od_order_number, od_project_id, od_type)
+      value (#{odOrderNumber,jdbcType=VARCHAR}, #{odProjectId,jdbcType=INTEGER}, #{odType,jdbcType=INTEGER})
+  </insert>
 </mapper>

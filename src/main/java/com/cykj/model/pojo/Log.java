@@ -30,4 +30,9 @@ public class Log {
      * 操作
      */
     private String logOperation;
+
+    /**
+     * 关联的工作人员账号
+     */
+    private String staffAccount;
 }

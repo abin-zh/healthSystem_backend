@@ -8,6 +8,18 @@ import com.cykj.model.pojo.Department;
  * @date 2024/8/8 10:47
  */
 public interface DepartmentMapper {
-    List<Department> findAllByDeptNameWithPage(@Param("deptName")String deptName);
+    List<Department> findAllWithPage(Department department);
+
+    List<Department> findAllByDeptIsDeleted(Integer deptIsDeleted);
+
+
+    Department findOneByDeptName(@Param("deptName")String deptName);
+
+    int addOneDept(String deptName);
+
+    int updateByDeptId(@Param("updated")Department updated,@Param("deptId")Integer deptId);
+
+    int deleteByDeptId(@Param("deptId")Integer deptId);
+
 
 }

@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-public class MedicalProject {
+public class MedicalProject extends Medical{
     /**
      * 项目ID
      */
@@ -44,9 +44,20 @@ public class MedicalProject {
     private BigDecimal endPrice;
 
     /**
-     *
+     * 项目所属部门id
      */
     private Integer projectDeptId;
 
+    /**
+     * 体检项目所属部门名称
+     */
+    private String projectDeptName;
+
+
+    /**
+     * 项目下体检细项
+     */
     private List<MedicalItem> items;
+
+
 }

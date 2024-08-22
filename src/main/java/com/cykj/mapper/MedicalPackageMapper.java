@@ -10,5 +10,15 @@ import com.cykj.model.pojo.MedicalPackage;
  */
 public interface MedicalPackageMapper {
     List<MedicalPackage> findByAllWithPage(MedicalPackage medicalPackage);
+    List<MedicalPackage> findAllByPackageName(@Param("packageName")String packageName);
 
+    int addOneMedicalPackage(MedicalPackage medicalPackage);
+
+    int updateByPackageId(@Param("updated")MedicalPackage updated,@Param("packageId")Integer packageId);
+
+    int deleteMedicalPackage(int packageId);
+
+    List<MedicalPackage> findAllWithProjectByIsDelete(int isDelete);
+
+    List<MedicalPackage> findAllByPackageIds(List<Integer> ids);
 }

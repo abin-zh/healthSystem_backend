@@ -6,6 +6,10 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
     <context:component-scan base-package="com.cykj" />
 
+    <!-- 映射 Swagger-ui 静态资源-->
+    <mvc:resources mapping="swagger-ui.html" location="classpath:/META-INF/resources/"/>
+    <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
+
     <!--  fastjson 消息转换器  -->
     <bean id="messageConverter" class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
         <property name="supportedMediaTypes">
@@ -14,6 +18,12 @@
                 <value>text/html;charset=utf-8</value>
             </list>
         </property>
+    </bean>
+
+    <!--  文件上传配置  -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!--  最大上传文件大小 10MB  -->
+        <property name="maxUploadSize" value="10485760" />
     </bean>
 
     <!--  加载注解驱动  -->
@@ -25,6 +35,35 @@
     </mvc:annotation-driven>
 
     <mvc:default-servlet-handler />
+
+    <!--  拦截器  -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/staff/login"/>
+            <mvc:exclude-mapping path="/user/login"/>
+            <mvc:exclude-mapping path="/staff/email/code"/>
+            <mvc:exclude-mapping path="/user/email/code"/>
+            <mvc:exclude-mapping path="/user/register"/>
+            <bean class="com.cykj.interceptor.LoginInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <!--  分检医生业务拦截器  -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**/doctor/**"/>
+            <bean class="com.cykj.interceptor.DoctorInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <!--  总检医生业务拦截器  -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**/chief/**"/>
+            <bean class="com.cykj.interceptor.ChiefDoctorInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors>
 
     <!--  开启AOP支持  -->
     <aop:aspectj-autoproxy proxy-target-class="true" />
