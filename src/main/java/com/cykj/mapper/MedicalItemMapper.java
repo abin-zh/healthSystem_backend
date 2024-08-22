@@ -11,4 +11,18 @@ import com.cykj.model.pojo.MedicalItem;
 public interface MedicalItemMapper {
     List<MedicalItem> findByAllWithPage(MedicalItem medicalItem);
     MedicalItem findOneByItemId(@Param("itemId")Integer itemId);
+
+    MedicalItem findOneByItemName(@Param("itemName")String itemName);
+
+    List<MedicalItem> findAllByItemIsDeleted(@Param("itemIsDeleted")Integer itemIsDeleted);
+
+    int addOneItem(MedicalItem medicalItem);
+
+    int updateByItemId(@Param("updated")MedicalItem updated,@Param("itemId")Integer itemId);
+
+    int deleteByItemId(@Param("itemId")Integer itemId);
+
+    List<MedicalItem> findAllByItemIdWithProjectItem(int itemId);
+
+    List<MedicalItem> findAllByProjectIdWithProjectItem(int projectId);
 }

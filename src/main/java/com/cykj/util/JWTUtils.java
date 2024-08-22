@@ -16,7 +16,7 @@ public class JWTUtils {
 
     private static String secretKey = "D7xLOh30NuCfLN5BocfpZmHn5427xafemtgaowk30vnPrBcd30yFNnzZ6TkwFhkkv3CB9QJg3GyyLo80TFMRDvvggjKxh2MIknWg3uaEWKY3EyF5jJ9cdRTFrPjr03vB";
 
-    private static long expire = 1000 * 60 * 60;
+    private static long expire = 1000 * 60 * 60 * 7 * 24;
 
     /**
      * 生成token

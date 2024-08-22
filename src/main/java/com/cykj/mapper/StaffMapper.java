@@ -12,8 +12,16 @@ import com.cykj.model.pojo.Staff;
 public interface StaffMapper {
 
     Staff findOneByStaffAccount(@Param("staffAccount")String staffAccount);
+
     List<Staff> findAllWithPage();
 
     Staff findOneByStaffId(@Param("staffId")Integer staffId);
+
+    List<Staff> findAllByStaffDeptId(@Param("staffDeptId")Integer staffDeptId);
+
+    int addOneStaff(Staff staff);
+
+    int updateByStaffId(@Param("updated")Staff updated,@Param("staffId")Integer staffId);
+
 
 }

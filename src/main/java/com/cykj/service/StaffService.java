@@ -20,7 +20,7 @@ public interface StaffService{
      * @param password 密码
      * @return
      */
-    ResponseDTO login(String username, String password);
+    ResponseDTO login(String username, String password, HttpSession httpSession);
 
     /**
      * 发送邮箱验证码
@@ -45,4 +45,25 @@ public interface StaffService{
      * @return
      */
     ResponseDTO getStaffInfo(int staffId,int roleId);
+
+    /**
+     * 获取添加/编辑管理员信息所需的信息(角色列表和科室列表)
+     * @return
+     */
+    ResponseDTO getRolesAndDepts();
+
+    /**
+     * 添加管理员
+     * @param staff 管理员信息
+     * @return
+     */
+    ResponseDTO addOneStaff(Staff staff);
+
+    /**
+     * 编辑管理员
+     * @param staff 管理员信息
+     * @return
+     */
+    ResponseDTO editStaff(Staff staff);
+
 }

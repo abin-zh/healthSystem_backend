@@ -17,4 +17,13 @@ public interface UsersMapper {
 
     List<User> findByAllWithPage(User user);
 
+    int updateByUserId(@Param("updated")User updated,@Param("userId")Integer userId);
+
+    int deleteUser(int userId);
+
+    User findOneByUserId(@Param("userId")Integer userId);
+
+    int updateUserBalance(@Param("updatedUserBalance")BigDecimal updatedUserBalance);
+
+
 }

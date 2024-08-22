@@ -1,6 +1,8 @@
 package com.cykj.model.pojo;
 
 import java.math.BigDecimal;
+import java.util.List;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,7 +13,7 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-public class MedicalPackage {
+public class MedicalPackage extends Medical{
     /**
      * 套餐ID
      */
@@ -30,7 +32,7 @@ public class MedicalPackage {
     /**
      * 是否删除 (1: 已删除, 0: 未删除)
      */
-    private Boolean packageIsDeleted;
+    private Integer packageIsDeleted;
 
     /**
      * 查询价格区间(上限)
@@ -41,4 +43,9 @@ public class MedicalPackage {
      * 查询价格区间(下限)
      */
     private BigDecimal endPrice;
+
+    /**
+     * 对应的体检项目列表
+     */
+    private List<MedicalProject> projects;
 }

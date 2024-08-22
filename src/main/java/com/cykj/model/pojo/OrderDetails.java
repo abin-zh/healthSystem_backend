@@ -29,4 +29,10 @@ public class OrderDetails {
      * 类型 0项目 1套餐
      */
     private Integer odType;
+
+    public OrderDetails(String odOrderNumber, Integer odProjectId, Integer odType) {
+        this.odOrderNumber = odOrderNumber;
+        this.odProjectId = odProjectId;
+        this.odType = odType;
+    }
 }

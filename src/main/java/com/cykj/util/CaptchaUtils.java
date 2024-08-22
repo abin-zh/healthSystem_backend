@@ -1,4 +1,4 @@
-package com.cykj.util.tree;
+package com.cykj.util;
 
 import cn.hutool.extra.mail.MailUtil;
 

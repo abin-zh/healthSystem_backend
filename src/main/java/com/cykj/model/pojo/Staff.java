@@ -26,6 +26,11 @@ public class Staff {
     private String staffPassword;
 
     /**
+     * 确认密码
+     */
+    private String staffCPassword;
+
+    /**
      * 姓名
      */
     private String staffName;
@@ -43,12 +48,12 @@ public class Staff {
     /**
      * 使用状态 (1: 活跃, 0: 非活跃)
      */
-    private Boolean staffIsStatus;
+    private Integer staffIsStatus;
 
     /**
      * 是否删除 (1: 已删除, 0: 未删除)
      */
-    private Boolean staffIsDeleted;
+    private Integer staffIsDeleted;
 
     /**
      * 工作人员邮箱
@@ -59,4 +64,14 @@ public class Staff {
      * 工作人员头像
      */
     private String staffAvatar;
+
+    /**
+     * 关联的科室名称
+     */
+    private String deptName;
+
+    /**
+     * 关联的角色名称
+     */
+    private String roleName;
 }

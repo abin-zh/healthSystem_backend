@@ -6,6 +6,7 @@ import com.cykj.model.vo.PageVO;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * 用户(体检人员)业务
@@ -44,4 +45,25 @@ public interface UsersService{
      * @return
      */
     ResponseDTO getUsers(PageVO<User> pageVO);
+
+    /**
+     * 编辑用户信息
+     * @param user 需要更新的用户信息
+     * @return
+     */
+    ResponseDTO editUser(User user);
+
+    /**
+     * 删除用户
+     * @param ids 用户id列表
+     * @return
+     */
+    ResponseDTO deleteUser(List<Integer> ids);
+
+    /**
+     * 添加用户
+     * @param users 用户信息列表
+     * @return
+     */
+    ResponseDTO addUsers(List<User> users);
 }

@@ -28,4 +28,6 @@ public abstract class TreeNode<T>{
 
     private boolean isAdd;
 
+    private String parentTitle;
+
 }

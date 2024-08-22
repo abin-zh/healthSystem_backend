@@ -2,13 +2,10 @@ package com.cykj.controller;
 
 import com.cykj.model.dto.ResponseDTO;
 import com.cykj.model.pojo.Staff;
-import com.cykj.model.vo.InfoVO;
 import com.cykj.model.vo.LoginVO;
 import com.cykj.model.vo.PageVO;
 import com.cykj.service.StaffService;
-import com.cykj.util.CommonUtil;
-import com.cykj.util.JWTUtils;
-import io.jsonwebtoken.Claims;
+import com.cykj.util.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,12 +42,12 @@ public class StaffController {
         String code = (String) httpSession.getAttribute("code");
 
         //登录基础检查(判空，验证码比对)
-        ResponseDTO dto = CommonUtil.loginCheck(loginVo.getUsername(), loginVo.getPassword(), loginVo.getCode(), code,true);
+        ResponseDTO dto = CommonUtils.loginCheck(loginVo.getUsername(), loginVo.getPassword(), loginVo.getCode(), code,true);
         if(dto != null){
             return dto;
         }
 
-        return staffService.login(loginVo.getUsername(), loginVo.getPassword());
+        return staffService.login(loginVo.getUsername(), loginVo.getPassword(), httpSession);
     }
 
     @PostMapping("/email/code")
@@ -60,7 +57,7 @@ public class StaffController {
 
     @PostMapping("/info")
     public ResponseDTO getStaffInfo(HttpServletRequest request){
-        LinkedHashMap<String, Object> staff = CommonUtil.parseTokenInfo("staff", request);
+        LinkedHashMap<String, Object> staff = CommonUtils.parseTokenInfo("staff", request);
 
         if(staff != null){
             Integer staffId = (Integer) staff.get("staffId");
@@ -73,4 +70,17 @@ public class StaffController {
         return ResponseDTO.fail("错误的登录凭证");
     }
 
+    @RequestMapping("/edit/need")
+    public ResponseDTO getRolesAndDepts(){
+        return staffService.getRolesAndDepts();
+    }
+
+    @RequestMapping("/edit")
+    public ResponseDTO getRolesAndDepts(@RequestBody Staff staff){
+        if(staff.getStaffId() == null){
+            return staffService.addOneStaff(staff);
+        } else {
+            return staffService.editStaff(staff);
+        }
+    }
 }

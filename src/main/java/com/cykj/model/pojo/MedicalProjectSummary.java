@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * @author abin
- * @date 2024/8/8 10:47
+ * @date 2024/8/19 14:56
  */
 @Data
 @NoArgsConstructor
@@ -39,5 +39,25 @@ public class MedicalProjectSummary {
     /**
      * 时间
      */
-    private Date time;
+    private Date psTime;
+
+    /**
+     * 项目小结状态 0未评 1已评
+     */
+    private Integer psStatus;
+
+    /**
+     * 关联体检项目
+     */
+    private MedicalProject project;
+
+    /**
+     * 关联医生
+     */
+    private Staff staff;
+
+    public MedicalProjectSummary(Integer psOrderId, Integer psProjectId) {
+        this.psOrderId = psOrderId;
+        this.psProjectId = psProjectId;
+    }
 }
