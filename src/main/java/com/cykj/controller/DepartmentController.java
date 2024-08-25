@@ -1,5 +1,6 @@
 package com.cykj.controller;
 
+import com.cykj.annotation.Monitor;
 import com.cykj.exception.DeleteException;
 import com.cykj.model.dto.ResponseDTO;
 import com.cykj.model.pojo.Department;
@@ -8,10 +9,11 @@ import com.cykj.model.vo.PageVO;
 import com.cykj.service.DepartmentService;
 import com.cykj.util.CommonUtils;
 import com.cykj.util.StrUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * (department)表控制层
+ * 科室控制层
  *
  * @author xxxxx
  */
@@ -21,6 +23,7 @@ public class DepartmentController {
 
     private DepartmentService departmentService;
 
+    @Autowired
     public DepartmentController(DepartmentService departmentService) {
         this.departmentService = departmentService;
     }
@@ -31,6 +34,7 @@ public class DepartmentController {
     }
 
     @PostMapping("edit")
+    @Monitor("添加/编辑科室")
     public ResponseDTO editDept(@RequestBody Department department) {
         if (StrUtils.isEmpty(department.getDeptName())) {
             return ResponseDTO.fail("未提供需求信息");
@@ -45,6 +49,7 @@ public class DepartmentController {
     }
 
     @PostMapping("del")
+    @Monitor("删除科室")
     public ResponseDTO deleteDept(@RequestBody DelVO delVO) {
         ResponseDTO dto = CommonUtils.checkDelVO(delVO);
         if(dto != null){

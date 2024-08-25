@@ -6,6 +6,7 @@ import lombok.Data;
 import java.util.List;
 
 /**
+ * 权限分配树信息
  * @author abin
  * @date 2024/7/30 13:14
  */

@@ -1,4 +1,5 @@
 package com.cykj.controller;
+import com.cykj.annotation.Monitor;
 import com.cykj.exception.DeleteException;
 import com.cykj.model.dto.ResponseDTO;
 import com.cykj.model.pojo.MedicalItem;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
-* (medical_item)表控制层
+* 体检细项控制层
 *
 * @author xxxxx
 */
@@ -33,6 +34,7 @@ public class MedicalItemController {
     }
 
     @PostMapping("/edit")
+    @Monitor("添加/编辑体检细项")
     public ResponseDTO editMeicalItem(@RequestBody MedicalItem medicalItem){
         if(StrUtils.hasEmpty(medicalItem.getItemName())){
             return ResponseDTO.fail("未提供需求信息");
@@ -46,6 +48,7 @@ public class MedicalItemController {
     }
 
     @PostMapping("del")
+    @Monitor("删除体检细项")
     public ResponseDTO deleteMedicalItem(@RequestBody DelVO delVO){
         ResponseDTO dto = CommonUtils.checkDelVO(delVO);
         if(dto != null){

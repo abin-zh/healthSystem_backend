@@ -137,6 +137,13 @@
             <artifactId>hutool-poi</artifactId>
             <version>5.8.26</version>
         </dependency>
+
+        <!-- 支付宝 -->
+        <dependency>
+            <groupId>com.alipay.sdk</groupId>
+            <artifactId>alipay-sdk-java</artifactId>
+            <version>4.39.186.ALL</version>
+        </dependency>
     </dependencies>
     <build>
         <finalName>healthSystem_backend</finalName>

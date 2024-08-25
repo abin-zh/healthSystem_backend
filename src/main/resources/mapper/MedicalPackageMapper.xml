@@ -34,6 +34,9 @@
             <if test="endPrice != null">
                 and package_price &lt;= #{endPrice,jdbcType=DECIMAL}
             </if>
+            <if test="packageIsDeleted != null">
+                and package_is_deleted = #{packageIsDeleted,jdbcType=INTEGER}
+            </if>
         </where>
     </select>
 

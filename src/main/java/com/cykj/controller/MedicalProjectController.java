@@ -1,5 +1,6 @@
 package com.cykj.controller;
 
+import com.cykj.annotation.Monitor;
 import com.cykj.exception.DeleteException;
 import com.cykj.model.dto.ResponseDTO;
 import com.cykj.model.pojo.MedicalProject;
@@ -32,6 +33,12 @@ public class MedicalProjectController {
         return medicalProjectService.getMedicalProjects(pageVO);
     }
 
+    @RequestMapping("/search/exist")
+    public ResponseDTO searchExist(@RequestBody PageVO<MedicalProject> pageVO) {
+        pageVO.getData().setProjectIsDeleted(false);
+        return medicalProjectService.getMedicalProjects(pageVO);
+    }
+
 
     @RequestMapping("/item")
     public ResponseDTO getProjectItem(@RequestBody MedicalProject medicalProject) {
@@ -47,6 +54,7 @@ public class MedicalProjectController {
     }
 
     @PostMapping("edit")
+    @Monitor("添加/编辑体检项目")
     public ResponseDTO editProject(@RequestBody MedicalProject medicalProject) {
         if (medicalProject.getProjectName() == null) {
             return ResponseDTO.fail("未提供需求信息");
@@ -63,6 +71,7 @@ public class MedicalProjectController {
     }
 
     @PostMapping("del")
+    @Monitor("删除体检项目")
     public ResponseDTO deleteMedicalProject(@RequestBody DelVO delVO) {
         ResponseDTO dto = CommonUtils.checkDelVO(delVO);
         if(dto != null){

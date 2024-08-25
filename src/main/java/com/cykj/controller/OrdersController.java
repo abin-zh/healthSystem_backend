@@ -1,10 +1,10 @@
 package com.cykj.controller;
+import cn.hutool.core.bean.BeanUtil;
+import com.cykj.annotation.Monitor;
 import com.cykj.exception.AddException;
 import com.cykj.exception.CurdException;
 import com.cykj.model.dto.ResponseDTO;
-import com.cykj.model.pojo.MedicalCheckupSummary;
-import com.cykj.model.pojo.MedicalItemCheckResults;
-import com.cykj.model.pojo.MedicalProjectSummary;
+import com.cykj.model.pojo.*;
 import com.cykj.model.vo.OrderDeptVO;
 import com.cykj.model.vo.OrderVO;
 import com.cykj.model.vo.PageVO;
@@ -19,9 +19,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.LinkedHashMap;
 
 /**
-* (orders)表控制层
+* 体检单(订单)控制层
 *
-* @author xxxxx
+* @author abin
 */
 @RestController
 @RequestMapping("/orders")
@@ -34,6 +34,7 @@ public class OrdersController {
     }
 
     @PostMapping("add")
+    @Monitor("开单")
     public ResponseDTO addOrder(@RequestBody OrderVO orderVO){
         try{
             return ordersService.addOneOrder(orderVO);
@@ -42,14 +43,39 @@ public class OrdersController {
         }
     }
 
+    @PostMapping("user/add")
+    public ResponseDTO addUserOrder(@RequestBody OrderVO orderVO, HttpServletRequest request){
+        LinkedHashMap<String, Object> user = CommonUtils.parseTokenInfo("user", request);
+        User userInfo = BeanUtil.mapToBean(user, User.class, true);
+        if(userInfo.getUserId() == null){
+            return ResponseDTO.fail(402,"登录凭证错误，无法创建订单");
+        }
+        orderVO.setUserId(userInfo.getUserId());
+        try{
+            return ordersService.addOneOrder(orderVO);
+        } catch (AddException e){
+            return ResponseDTO.fail(e.getMessage());
+        }
+    }
+
+    @PostMapping("search/user")
+    public ResponseDTO getUserOrders(@RequestBody PageVO<Order> vo, HttpServletRequest request){
+        LinkedHashMap<String, Object> user = CommonUtils.parseTokenInfo("user", request);
+        User userInfo = BeanUtil.mapToBean(user, User.class, true);
+        if(userInfo == null || userInfo.getUserId() == null){
+            ResponseDTO.fail(402, "错误的登录凭证");
+        }
+        return ordersService.getUserOrders(vo, userInfo.getUserId());
+    }
+
+    /**
+     * 获取科室订单信息
+     * 1.需要有查询的科室ID
+     * 2.订单号(体检编号)存在，查询单次订单
+     * 3.用户手机号或身份证号存在，查询对应用户所有订单
+     */
     @PostMapping("search/doctor/dept")
     public ResponseDTO getOrder(@RequestBody PageVO<OrderDeptVO> vo, HttpServletRequest request){
-
-        /**
-         * 1.需要有查询的科室ID
-         * 2.订单号(体检编号)存在，查询单次订单
-         * 3.用户手机号或身份证号存在，查询对应用户所有订单
-         */
         LinkedHashMap<String, Object> staff = CommonUtils.parseTokenInfo("staff", request);
         Integer deptId = (Integer) staff.get("staffDeptId");
 
@@ -80,6 +106,7 @@ public class OrdersController {
     }
 
     @PostMapping("doctor/dept/item/edit")
+    @Monitor("编辑细项结论")
     public ResponseDTO editItemResult(@RequestBody MedicalItemCheckResults results, HttpServletRequest request){
         LinkedHashMap<String, Object> staff = CommonUtils.parseTokenInfo("staff", request);
         Integer staffId = (Integer) staff.get("staffId");
@@ -91,6 +118,7 @@ public class OrdersController {
     }
 
     @PostMapping("doctor/dept/project/edit")
+    @Monitor("编辑体检小结")
     public ResponseDTO editProjectSummary(@RequestBody MedicalProjectSummary summary, HttpServletRequest request){
         LinkedHashMap<String, Object> staff = CommonUtils.parseTokenInfo("staff", request);
         Integer staffId = (Integer) staff.get("staffId");
@@ -119,6 +147,7 @@ public class OrdersController {
     }
 
     @PostMapping("chief/checkup/edit")
+    @Monitor("编辑体检总结")
     public ResponseDTO editCheckupEdit(@RequestBody MedicalCheckupSummary summary, HttpServletRequest request){
         LinkedHashMap<String, Object> staff = CommonUtils.parseTokenInfo("staff", request);
         Integer staffId = (Integer) staff.get("staffId");
@@ -127,5 +156,46 @@ public class OrdersController {
         }
         summary.setCsStaffId(staffId);
         return ordersService.editCheckResultSummary(summary);
+    }
+
+    @RequestMapping("project/user")
+    public ResponseDTO getUserProjectSummaries(@RequestBody PageVO<Order> vo, HttpServletRequest request){
+        ResponseDTO dto = userOrderCheck(vo, request);
+        if (dto != null){
+            return dto;
+        }
+        return ordersService.getUserProjectSummaries(vo);
+    }
+
+    @RequestMapping("checkup/user")
+    public ResponseDTO getUserCheckupSummary(@RequestBody PageVO<Order> vo, HttpServletRequest request){
+        ResponseDTO dto = userOrderCheck(vo, request);
+        if (dto != null) {
+            return dto;
+        }
+        return ordersService.getUserCheckupSummary(vo);
+    }
+
+
+    @RequestMapping("amount/month")
+    public ResponseDTO getMonthOrderTotalAmount(){
+        return ordersService.getMonthOrderTotalAmount();
+    }
+
+    /**
+     * 用户获取订单关联信息时检查
+     * @param vo 检查信息
+     * @param request 请求内容
+     * @return 提示信息
+     */
+    private static ResponseDTO userOrderCheck(PageVO<Order> vo, HttpServletRequest request) {
+        LinkedHashMap<String, Object> user = CommonUtils.parseTokenInfo("user", request);
+        User userInfo = BeanUtil.mapToBean(user, User.class, true);
+        if(vo.getData().getOrderId() == null || userInfo.getUserId() == null){
+            return ResponseDTO.fail("未提供需求信息");
+        } else if(!userInfo.getUserId().equals(vo.getData().getOrderUserId())){
+            return ResponseDTO.fail("无法查看他人的内容");
+        }
+        return null;
     }
 }

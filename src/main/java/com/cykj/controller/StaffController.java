@@ -1,5 +1,6 @@
 package com.cykj.controller;
 
+import com.cykj.annotation.Monitor;
 import com.cykj.model.dto.ResponseDTO;
 import com.cykj.model.pojo.Staff;
 import com.cykj.model.vo.LoginVO;
@@ -62,7 +63,7 @@ public class StaffController {
         if(staff != null){
             Integer staffId = (Integer) staff.get("staffId");
             Integer roleId = (Integer) staff.get("staffRoleId");
-            if(staffId != null || roleId != null){
+            if(staffId != null && roleId != null){
                 return staffService.getStaffInfo(staffId, roleId);
             }
         }
@@ -76,7 +77,8 @@ public class StaffController {
     }
 
     @RequestMapping("/edit")
-    public ResponseDTO getRolesAndDepts(@RequestBody Staff staff){
+    @Monitor("添加/编辑工作人员(管理员)")
+    public ResponseDTO editStaff(@RequestBody Staff staff){
         if(staff.getStaffId() == null){
             return staffService.addOneStaff(staff);
         } else {

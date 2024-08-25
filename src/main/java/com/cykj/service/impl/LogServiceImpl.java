@@ -16,6 +16,7 @@ import com.cykj.service.LogService;
 import java.util.List;
 
 /**
+ * 日志业务实现层
  * @author abin
  * @date 2024/8/8 10:47
 */

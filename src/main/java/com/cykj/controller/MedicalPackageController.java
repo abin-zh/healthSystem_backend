@@ -1,4 +1,5 @@
 package com.cykj.controller;
+import com.cykj.annotation.Monitor;
 import com.cykj.exception.CurdException;
 import com.cykj.model.dto.ResponseDTO;
 import com.cykj.model.pojo.MedicalPackage;
@@ -31,6 +32,12 @@ public class MedicalPackageController {
         return medicalPackageService.getMedicalPackage(pageVO);
     }
 
+    @RequestMapping("/search/exist")
+    public ResponseDTO searchExist(@RequestBody PageVO<MedicalPackage> pageVO){
+        pageVO.getData().setPackageIsDeleted(0);
+        return medicalPackageService.getMedicalPackage(pageVO);
+    }
+
     @RequestMapping("/project")
     public ResponseDTO getPackageProjectItems(@RequestBody MedicalPackage medicalPackage){
         if (medicalPackage.getPackageId() != null) {
@@ -45,6 +52,7 @@ public class MedicalPackageController {
     }
 
     @PostMapping("edit")
+    @Monitor("添加/编辑体检套餐")
     public ResponseDTO editPackage(@RequestBody MedicalPackage medicalPackage){
         if(medicalPackage.getPackageName() == null){
             return ResponseDTO.fail("未提供需求参数");
@@ -61,6 +69,7 @@ public class MedicalPackageController {
     }
 
     @RequestMapping("del")
+    @Monitor("删除体检套餐")
     public ResponseDTO deletePackages(@RequestBody DelVO delVO){
         ResponseDTO dto = CommonUtils.checkDelVO(delVO);
         if(dto != null){

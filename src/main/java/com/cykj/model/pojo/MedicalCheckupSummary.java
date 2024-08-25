@@ -53,4 +53,9 @@ public class MedicalCheckupSummary {
      */
     private User user;
 
+    /**
+     * 关联的医生信息
+     */
+    private Staff staff;
+
 }
