@@ -3,6 +3,7 @@ package com.cykj.util;
 import javax.servlet.http.Cookie;
 
 /**
+ * cookie工具类
  * @author abin
  * @date 2024/7/31 22:44
  */

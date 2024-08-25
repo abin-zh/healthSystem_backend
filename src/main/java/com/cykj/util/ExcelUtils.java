@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * excel工具类
  * @author guoc
  * <a href="https://cnblogs.com/mlxs/p/16745344.html">参考</a>
  * @date 2024/8/14 13:10
@@ -100,7 +101,7 @@ public class ExcelUtils {
      * @param path 文件路径
      * @param fileName 文件名
      * @param response  响应servlet
-     * @throws IOException
+     * @throws IOException 输入输出异常
      */
     public static void readAndExport(String path, String fileName,HttpServletResponse response) throws IOException {
         ExcelReader reader = ExcelUtil.getReader(new File(FileUtil.getWebRoot().getPath() + "/WEB-INF" + path));

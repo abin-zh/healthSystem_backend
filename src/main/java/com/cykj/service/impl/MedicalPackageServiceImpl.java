@@ -27,6 +27,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
+ * 体检项目业务实现层
  * @author abin
  * @date 2024/8/8 10:47
  */
@@ -114,6 +115,12 @@ public class MedicalPackageServiceImpl implements MedicalPackageService {
         return count == itemIds.size() && res >= 1 ? ResponseDTO.success("添加成功") : ResponseDTO.fail("添加失败，未知添加错误");
     }
 
+    /**
+     * 编辑体检套餐及其关联项目
+     * 1. 更新体检套餐信息
+     * 2. 删除关联体检项目信息(遍历删除项目列表)
+     * 3. 添加关联体检项目信息(遍历添加项目列表)
+     */
     @Override
     public ResponseDTO editPackageAndPackageProject(MedicalPackage medicalPackage) throws UpdateException{
         //有同名体检项目存在
@@ -122,11 +129,6 @@ public class MedicalPackageServiceImpl implements MedicalPackageService {
             ResponseDTO.fail("添加失败，已存在的同名的体检项目");
         }
 
-        /**
-         * 1. 更新体检套餐信息
-         * 2. 删除关联体检项目信息(遍历删除项目列表)
-         * 3. 添加关联体检项目信息(遍历添加项目列表)
-         */
         int projectRes = 0, addCount = 0, rmCount = 0;
         try {
             projectRes = medicalPackageMapper.updateByPackageId(medicalPackage, medicalPackage.getPackageId());

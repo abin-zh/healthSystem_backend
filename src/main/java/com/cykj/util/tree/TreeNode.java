@@ -1,6 +1,5 @@
 package com.cykj.util.tree;
 
-import com.cykj.model.pojo.Menu;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

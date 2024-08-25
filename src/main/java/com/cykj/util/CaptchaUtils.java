@@ -54,9 +54,9 @@ public class CaptchaUtils {
      *
      * @param width   绘制图片长度
      * @param height  绘制图片宽读
-     * @param lineNum
-     * @param code
-     * @return
+     * @param lineNum 干扰线数量
+     * @param code 验证码信息
+     * @return 图片信息
      */
     public static BufferedImage createCodeImage(int width, int height, int lineNum, String code) {
         //空白图像
@@ -80,7 +80,7 @@ public class CaptchaUtils {
             //角度偏移
             int angle = RANDOM.nextInt(35);
             //偏移方向
-            angle = RANDOM.nextBoolean() == true ? angle : -angle;
+            angle = RANDOM.nextBoolean() ? angle : -angle;
             AffineTransform affineTransform = new AffineTransform();
             //Math.toRadians() 角度转弧度
             affineTransform.rotate(Math.toRadians(angle), 0, 0);
@@ -102,8 +102,8 @@ public class CaptchaUtils {
     /**
      * 发送验证码图片
      *
-     * @param response
-     * @param session
+     * @param response 响应内容
+     * @param session 会话内容
      */
     public static void sendHttp(HttpServletResponse response, HttpSession session) {
         String code = CaptchaUtils.generateCode(4);
@@ -126,8 +126,10 @@ public class CaptchaUtils {
 
     /**
      * 发送邮箱验证码
-     *
-     * @param email
+     * @param email 收件邮箱
+     * @param session 会话内容
+     * @param response 响应内容
+     * @return 是否发送成功
      */
     public static boolean sendSmtp(String email, HttpSession session, HttpServletResponse response) {
         String code = generateCode(6);
@@ -136,7 +138,7 @@ public class CaptchaUtils {
         Cookie cookie = new Cookie("JSESSIONID", session.getId());
         response.addCookie(cookie);
         try {
-            String send = MailUtil.send(email, "体检系统登录验证码", "欢迎登录体检系统，您的登录验证码是<p style='color:red;'>"+ code +"</p>", true);
+            MailUtil.send(email, "体检系统登录验证码", "欢迎登录体检系统，您的登录验证码是<p style='color:red;'>" + code + "</p>", true);
         } catch (Exception e) {
             return false;
         }

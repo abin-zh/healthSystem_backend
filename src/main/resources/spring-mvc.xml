@@ -6,9 +6,9 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
     <context:component-scan base-package="com.cykj" />
 
-    <!-- 映射 Swagger-ui 静态资源-->
-    <mvc:resources mapping="swagger-ui.html" location="classpath:/META-INF/resources/"/>
-    <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
+<!--    &lt;!&ndash; 映射 Swagger-ui 静态资源&ndash;&gt;-->
+<!--    <mvc:resources mapping="swagger-ui.html" location="classpath:/META-INF/resources/"/>-->
+<!--    <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>-->
 
     <!--  fastjson 消息转换器  -->
     <bean id="messageConverter" class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
@@ -24,6 +24,15 @@
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <!--  最大上传文件大小 10MB  -->
         <property name="maxUploadSize" value="10485760" />
+    </bean>
+
+    <!--  支付宝配置  -->
+    <bean id="alipayConfig" class="com.alipay.api.AlipayConfig">
+        <property name="serverUrl"  value="https://openapi-sandbox.dl.alipaydev.com/gateway.do" />
+        <property name="appId" value="9021000140626125" />
+        <property name="privateKey" value="MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCBXag8pfbTO4jcO920cPfDdFSNSwA9wIJhHPLiN/eYOzjy9Dz6mOUt3cIRasulDMcTnlvfbH9JLll7x34mRaDxzaRcilDWTY1i25yLINgahmsSWXMo3eCid1ZHhWEYB6w33QXoCV2eYoruMXW7AfIbcC/1Z/eyZf6te2yf5rorhl3SMPxQ74AqpeNC8aJduM37dreeJ+wrtwAPsIrDAl127n9WSFn10gtCMyycd+5rMC5uLgAs7HBWrQkzMoEo5I966swZ+LY1FrZkBiPZZwDssv8jtf74ggQi3g5pxo6Nz1O/KuWaehhM/XRmhXunP5KU7nvbKpe+8qbN2jZA60wxAgMBAAECggEAPW7Of86IghMZkQxU4mVrI0RRCq/9M1YCFD/9D3RofcBR8P4PHyoQW1Gd4UuH3Z9NwoFHO7h4UbZTBDbeLyqNnYZ8cP22Ga7GX5XOpzs3pJEEs7gKufNzw3NMY7ZxP0oVfInXTjN0Y8yEEU0njWEFKgaCn9V5iRxqbtPX569X5WbAEo6KXS2AKnZwCkP2ieaznx2oh5I+g3ev2krWCOPkAmdP6o6YurtIAImANtNSGuK3u0DJnOoGpdqdlF8oOstiw847ieBL5+YjJvcWA5kSnuWK4/8DwHAwllwNAQgn3WCYlVJJ7F+DXY9MkLbrLoL/bWWGg1vaZ+xKn23tpKc9CQKBgQDY1u9oYVUqK0nRtweLMWJTulRG/YPRPm2cLjs3WTO2Z8YqATpe0U8x7HNDlk08f20wT9kKIp+EEMHxZrCSnBsSBCBMfB/oR/a9/LhjUZMCc+9xpZgZejK3VwbmQzhQfdAZznXUEN3lTRO4SYIJKdx5K+xbG0lDib8eTpomc4ENfwKBgQCYupSqjxVuOw6Hbm76atOPtWLM+bgLJwNQFwB8Q6xtIaeMnCc9YaT2jdpbnyshrGrGdrRWz0rWU/UZnelCDr1eeezOFrungrvBnIFq9hfBZ4m2HWqUFHp+LcUyeSHN0Ysx7dqiG1uMJBFVD86n1HJEl4IvrhwUKhdD5afUB5zeTwKBgBeoK2pp5A67tkwI+eu3sZCM7ZDpK65ybybw7Ej3lGq8G6SNib66ezdpIpInHboR9OmmbHlsmZag9WfO2kjEezeV96ggiqKe506G+d7sEWvdFiyB8nwlFs9l0Tzh7IzrjP6jxbsjM/JGXHZonqU9Se52Wkz+Rxn1N0KpNKwpQdUlAoGAVqD2NGwmVrjuu8ja7/Vp/MiAuw0l5EWDrojtgI6OHfSJ6cqkwz9AZ4z8fx2gRGBczCeGkPrRUxKaIqacKRjdNtpnhFoGpLQVtXMFQVtHDC+jQAYdbtLSzAFAKinlD648ityEN5DW8319y0bFDBMHoXpioJLcYF+jhKKd+Dk9NCcCgYEAoOLu+WPorne4Jk+tjywMTQVUIJM2dxNMjWx0aRLyZ2UDTSOkOGyxJB0OwyVdm9pSrqHsaz9UO/co9sANjkjDES+Khh4/E9A3SvL7BjmLqIZg9FpzbBfU/XGxkauMFQarlkrrA/eLSrQerNSOMLYKpA9deojwuSlhSD/I9b8jCXg=" />
+        <property name="alipayPublicKey" value="MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlp1yC2G49P14dQjllyJYsdVF8zZQSnDQQPxYSR5dOvtUlu1tGS64MsImp2PVXshl/VYQpELrdgwGWG3gikZiMWIq9y0Y2r37Qx8PPlvm89smkK7uVjX5+QLJXsRrPeP1o0bUjCIYy2jlVFk5Iac3clw02ZfvgqBesbnwG+lCKJrIzqbKQfU1349WgFAgAlsEhFt6RQ2/Vx8HPuvL35Ry73slwHNy9hmQEeEnhg2AhaG9SG/9pfEDOTI+sLtjJssbxfDvHWg+taIUhBbZzux0VRceWrqYiuGwvOuiHCi2kwuqs9Hyq/ZDY3Go1mdciMYpsfube29jix1S9n9ncHr/TwIDAQAB" />
+        <property name="format" value="json" />
     </bean>
 
     <!--  加载注解驱动  -->
@@ -42,6 +51,7 @@
             <mvc:mapping path="/**"/>
             <mvc:exclude-mapping path="/staff/login"/>
             <mvc:exclude-mapping path="/user/login"/>
+            <mvc:exclude-mapping path="/user/pay/notify"/>
             <mvc:exclude-mapping path="/staff/email/code"/>
             <mvc:exclude-mapping path="/user/email/code"/>
             <mvc:exclude-mapping path="/user/register"/>

@@ -1,5 +1,6 @@
 package com.cykj.util;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.alibaba.fastjson.JSON;
 import com.cykj.mapper.UsersMapper;
 import com.cykj.model.dto.ResponseDTO;
@@ -14,8 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Objects;
 
 /**
+ * 通用工具(适用本项目)
  * @author abin
  * @date 2024/8/8 15:29
  */
@@ -31,7 +34,7 @@ public class CommonUtils {
      * @param code     验证码
      * @param scode    session中存放的验证码
      * @param isStaff  是否是管理员(工作人员)
-     * @return
+     * @return 提示信息
      */
     public static ResponseDTO loginCheck(String username, String password, String code, String scode,boolean isStaff) {
         //判空
@@ -53,7 +56,7 @@ public class CommonUtils {
      * @param user 查询的用户(工作人员)
      * @param inputPwd 用户输入的密码
      * @param dbPwd 数据库中的密码
-     * @return
+     * @return 提示信息
      */
     public static ResponseDTO passwordCheck(Object user,String inputPwd, String dbPwd){
         //检查密码
@@ -72,7 +75,7 @@ public class CommonUtils {
      *
      * @param username    用户名
      * @param usersMapper 用户接口映射
-     * @return
+     * @return 用户信息
      */
     public static User userLogin(String username, UsersMapper usersMapper) {
         //判断用户用手机号还是身份证号进行登录
@@ -90,20 +93,24 @@ public class CommonUtils {
      * 解析token根据建名获取数据
      * @param infoName 键名
      * @param request 请求信息
-     * @return
+     * @return 人员信息
      */
     public static LinkedHashMap<String, Object> parseTokenInfo(String infoName, HttpServletRequest request){
         String token = request.getHeader("token");
         Claims claims = JWTUtils.parseToken(token);
-        LinkedHashMap<String, Object> object = (LinkedHashMap<String, Object>) claims.get(infoName);
-        return object;
+        return (LinkedHashMap<String, Object>) claims.get(infoName);
+    }
+
+    public static User pareseUserToken(HttpServletRequest request){
+        LinkedHashMap<String, Object> user = CommonUtils.parseTokenInfo("user", request);
+        return BeanUtil.mapToBean(user, User.class, true);
     }
 
     /**
      * 检查上下限值范围值是否合法
      * @param lowerLimit 下限
      * @param upperLimit 上限
-     * @return
+     * @return 提示信息
      */
     public static ResponseDTO checkLimit(BigDecimal lowerLimit, BigDecimal upperLimit){
         if(lowerLimit.compareTo(ZERO) < 0 || upperLimit.compareTo(ZERO) < 0){
@@ -117,7 +124,7 @@ public class CommonUtils {
     /**
      * 删除时基础检查
      * @param delVO 删除VO
-     * @return
+     * @return 提示信息
      */
     public static ResponseDTO checkDelVO(DelVO delVO){
         List<Integer> ids = delVO.getIds();
@@ -135,7 +142,7 @@ public class CommonUtils {
      * @param request 请求servlet
      * @param response 响应servlet
      * @return 是否通行
-     * @throws Exception
+     * @throws Exception 异常
      */
     public static boolean checkRole(String roleName, RoleMap roleMap, RoleService roleService, HttpServletRequest request, HttpServletResponse response) throws Exception{
         if (!roleMap.getMap().containsKey(roleName)) {
@@ -148,7 +155,7 @@ public class CommonUtils {
 
 
         //角色不匹配
-        if (doctorRoleId != roleId) {
+        if (!Objects.equals(doctorRoleId, roleId)) {
             response.getOutputStream().write(JSON.toJSONBytes(ResponseDTO.fail("您的角色无法使用此权限")));
             return false;
         }

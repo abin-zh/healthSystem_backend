@@ -6,6 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * 监控注解(用于日志记录)
  * @author abin
  * @date 2024/8/22 1:31
  */

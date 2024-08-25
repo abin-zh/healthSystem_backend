@@ -24,6 +24,11 @@ public class OrderVO {
     private BigDecimal orderTotalAmount;
 
     /**
+     * 体检编号
+     */
+    private String orderNumber;
+
+    /**
      * 订单的套餐id列表
      */
     private List<Integer> packageAddIds;

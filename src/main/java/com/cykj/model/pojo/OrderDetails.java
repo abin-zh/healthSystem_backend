@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
+ * 订单详情信息
  * @author abin
  * @date 2024/8/8 10:47
  */

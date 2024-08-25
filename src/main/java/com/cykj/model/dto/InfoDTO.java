@@ -7,6 +7,7 @@ import lombok.Data;
 import java.util.List;
 
 /**
+ * 登录信息
  * @author abin
  * @date 2024/8/10 18:39
  */

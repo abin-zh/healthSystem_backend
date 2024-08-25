@@ -13,10 +13,7 @@ public class StrUtils {
      * @return 是否为空字符串
      */
     public static boolean isEmpty(String str){
-        if(str == null || str.isEmpty()){
-            return true;
-        }
-        return false;
+        return str == null || str.isEmpty();
     }
 
     /**

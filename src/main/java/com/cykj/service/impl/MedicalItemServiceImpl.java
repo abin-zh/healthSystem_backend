@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
+ * 体检细项业务实现层
  * @author abin
  * @date 2024/8/8 10:47
 */
@@ -80,7 +81,7 @@ public class MedicalItemServiceImpl implements MedicalItemService{
                 throw new DeleteException("有体检项目正在使用该体检细项", id);
             }
             //尝试删除
-            int res = -1;
+            int res;
             try {
                 res = medicalItemMapper.deleteByItemId(id);
             } catch (Exception e) {

@@ -1,25 +1,25 @@
 package com.cykj.controller;
 
+import com.cykj.annotation.Monitor;
 import com.cykj.exception.CurdException;
 import com.cykj.model.dto.ResponseDTO;
 import com.cykj.model.pojo.Role;
 import com.cykj.model.vo.PageVO;
 import com.cykj.service.RoleService;
-import com.cykj.service.impl.RoleServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * (role)表控制层
+ * 角色控制层
  *
- * @author xxxxx
+ * @author abin
  */
 @RestController
 @RequestMapping("/role")
 public class RoleController {
 
-    private final RoleService roleService;
+    private RoleService roleService;
 
     @Autowired
     public RoleController(RoleService roleService) {
@@ -41,6 +41,7 @@ public class RoleController {
     }
 
     @RequestMapping("edit")
+    @Monitor("添加/编辑角色")
     public ResponseDTO edtiRoleAndMenu(@RequestBody Role role) {
         try{
             if (role.getRoleId() == null) {

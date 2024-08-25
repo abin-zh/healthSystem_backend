@@ -1,4 +1,4 @@
-package com.cykj.model.dto;
+package com.cykj.model.vo;
 
 import cn.hutool.core.annotation.Alias;
 
@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
+ * 用户excel表头对照实体
  * @author abin
  * @date 2024/8/14 13:29
  */

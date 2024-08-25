@@ -18,6 +18,7 @@ import com.cykj.service.MenuService;
 import java.util.List;
 
 /**
+ * 菜单业务实现层
  * @author abin
  * @date 2024/8/8 10:47
 */
@@ -42,7 +43,7 @@ public class MenuServiceImpl implements MenuService{
     public ResponseDTO getAllMenus(PageVO<Menu> vo) {
         Page<Object> page = PageHelper.startPage(vo.getPageNo(), vo.getPageSize());
         List<Menu> menus = menuMapper.findAll(vo.getData());
-        PageInfo<Object> pageInfo = new PageInfo(menus);
+        PageInfo<Object> pageInfo = new PageInfo<>(menus);
         return ResponseDTO.success((int) pageInfo.getTotal(), menus);
     }
 
@@ -55,12 +56,13 @@ public class MenuServiceImpl implements MenuService{
         return res >= 1 ? ResponseDTO.success("添加成功") : ResponseDTO.fail("添加失败");
     }
 
+    /**
+     * 编辑菜单
+     * 1.若删除，检查其下是否还有未删除的子菜单，若有则提示用户，阻止本次编辑
+     * 2.执行更新
+     */
     @Override
     public ResponseDTO editMenu(Menu menu) {
-        /**
-         * 1.若删除，检查其下是否还有未删除的子菜单，若有则提示用户，阻止本次编辑
-         * 2.执行更新
-         */
         if(menu.getMenuIsDeleted() != null && menu.getMenuIsDeleted() == 1){
             List<Menu> menus = menuMapper.findAllByParentIdAndMenuIsDeleted(menu.getId(), 0);
             if(!menus.isEmpty()){

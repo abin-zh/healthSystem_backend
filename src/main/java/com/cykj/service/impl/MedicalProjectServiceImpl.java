@@ -24,6 +24,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
+ * 体检细项业务实现层
  * @author abin
  * @date 2024/8/8 10:47
  */
@@ -115,6 +116,12 @@ public class MedicalProjectServiceImpl implements MedicalProjectService {
         return count == itemIds.size() && res >= 1 ? ResponseDTO.success("添加成功") : ResponseDTO.fail("添加失败，未知添加错误");
     }
 
+    /**
+     * 编辑体检项目及其关联细项
+     * 1. 更新体检项目信息
+     * 2. 删除关联体检细项信息(遍历删除细项列表)
+     * 3. 添加关联体检细项信息(遍历添加细项列表)
+     */
     @Override
     @Transactional
     public ResponseDTO editProjectAndProjectItem(MedicalProject medicalProject) throws UpdateException{
@@ -124,11 +131,6 @@ public class MedicalProjectServiceImpl implements MedicalProjectService {
             ResponseDTO.fail("添加失败，已存在的同名的体检项目");
         }
 
-        /**
-         * 1. 更新体检项目信息
-         * 2. 删除关联体检细项信息(遍历删除细项列表)
-         * 3. 添加关联体检细项信息(遍历添加细项列表)
-         */
         int projectRes = 0, addCount = 0, rmCount = 0;
         try {
             projectRes = medicalProjectMapper.updateByProjectId(medicalProject, medicalProject.getProjectId());
@@ -191,7 +193,7 @@ public class MedicalProjectServiceImpl implements MedicalProjectService {
     @Override
     public ResponseDTO getAllProjects() {
         List<MedicalProject> projects = medicalProjectMapper.findAllByProjectIsDeleted(0);
-        return ResponseDTO.success("获取成功", new EditNeedDTO<MedicalProject>(null , null, projects, new ArrayList<MedicalProject>(), null));
+        return ResponseDTO.success("获取成功", new EditNeedDTO<MedicalProject>(null , null, projects, new ArrayList<>(), null));
     }
 
 }

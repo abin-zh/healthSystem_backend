@@ -10,7 +10,7 @@
     <result column="ps_summary" jdbcType="LONGVARCHAR" property="psSummary" />
     <result column="ps_staff_id" jdbcType="INTEGER" property="psStaffId" />
     <result column="ps_time" jdbcType="TIMESTAMP" property="psTime" />
-    <result column="ps_status" jdbcType="INTEGER" property="psStatus" />
+        <result column="ps_status" jdbcType="INTEGER" property="psStatus" />
       <association property="staff" javaType="com.cykj.model.pojo.Staff" resultMap="com.cykj.mapper.StaffMapper.BaseResultMap" />
       <association property="project" javaType="com.cykj.model.pojo.MedicalProject" resultMap="com.cykj.mapper.MedicalProjectMapper.BaseResultMap" />
   </resultMap>
@@ -77,5 +77,17 @@
         left join healthsystem.staff s on s.staff_id = medical_project_summary.ps_staff_id
         join healthsystem.medical_project mp on medical_project_summary.ps_project_id = mp.project_id
         where ps_order_id=#{psOrderId,jdbcType=INTEGER}
+    </select>
+
+  <select id="findAllByOrderIdAndUserId" resultMap="BaseResultMap">
+      select
+      <include refid="Base_Column_List"/>,
+      <include refid="com.cykj.mapper.MedicalProjectMapper.Base_Column_List" />,
+      staff_id,staff_name
+      from medical_project_summary
+      left join healthsystem.staff s on s.staff_id = medical_project_summary.ps_staff_id
+      join healthsystem.medical_project mp on medical_project_summary.ps_project_id = mp.project_id
+      join healthsystem.orders o on medical_project_summary.ps_order_id = o.order_id
+      where ps_order_id=#{psOrderId,jdbcType=INTEGER} and order_user_id = #{orderUserId,jdbcType=INTEGER}
     </select>
 </mapper>

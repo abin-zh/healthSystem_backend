@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
+ * 科室业务实现层
  * @author abin
  * @date 2024/8/8 10:47
 */
@@ -85,7 +86,7 @@ public class DepartmentServiceImpl implements DepartmentService{
                 throw new DeleteException("该科室下还有医生", id);
             }
             //尝试删除
-            int res = -1;
+            int res;
             try{
                 res = departmentMapper.deleteByDeptId(id);
             } catch (Exception e){

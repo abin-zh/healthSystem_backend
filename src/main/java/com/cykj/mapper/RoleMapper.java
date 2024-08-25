@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Param;
 import com.cykj.model.pojo.Role;
 
 /**
+ * 角色操作
  * @author abin
  * @date 2024/8/8 10:47
  */

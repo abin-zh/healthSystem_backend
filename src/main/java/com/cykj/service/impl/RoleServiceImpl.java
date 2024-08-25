@@ -12,7 +12,6 @@ import com.cykj.model.pojo.Role;
 import com.cykj.model.vo.PageVO;
 import com.cykj.util.StrUtils;
 import com.cykj.util.TreeUtils;
-import com.cykj.util.tree.TreeBuilder;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -30,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 角色业务实现层
  * @author abin
  * @date 2024/8/8 10:47
 */

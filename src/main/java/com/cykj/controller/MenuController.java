@@ -5,7 +5,6 @@ import com.cykj.model.pojo.Menu;
 import com.cykj.model.vo.PageVO;
 import com.cykj.service.MenuService;
 import com.cykj.util.CommonUtils;
-import org.apache.log4j.Logger;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,7 @@ import java.util.LinkedHashMap;
 @RequestMapping("/menu")
 public class MenuController {
 
-    private final MenuService menuService;
+    private MenuService menuService;
 
     @Autowired
     public MenuController(MenuService menuService) {

@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
+ * 体检项目关联细项信息
  * @author abin
  * @date 2024/8/12 16:52
  */

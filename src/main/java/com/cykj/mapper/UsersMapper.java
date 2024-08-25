@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import com.cykj.model.pojo.User;
 
 /**
+ * 用户操作
  * @author abin
  * @date 2024/8/8 10:47
  */
@@ -23,7 +24,7 @@ public interface UsersMapper {
 
     User findOneByUserId(@Param("userId")Integer userId);
 
-    int updateUserBalance(@Param("updatedUserBalance")BigDecimal updatedUserBalance);
+    int updateUserBalance(@Param("userId") int userId,@Param("userBalance")BigDecimal userBalance);
 
 
 }

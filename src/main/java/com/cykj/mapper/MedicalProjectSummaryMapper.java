@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
+ * 体检项目小结操作
  * @author abin
  * @date 2024/8/19 14:56
  */
@@ -21,5 +22,7 @@ public interface MedicalProjectSummaryMapper {
     MedicalProjectSummary findOneByPsId(@Param("psId")Integer psId);
 
     List<MedicalProjectSummary> findAllByPsOrderId(@Param("psOrderId")Integer psOrderId);
+
+    List<MedicalProjectSummary> findAllByOrderIdAndUserId(@Param("orderUserId") Integer orderUserId,@Param("psOrderId")Integer psOrderId);
 
 }

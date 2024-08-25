@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.Map;
 
 /**
+ * jwt工具类
  * @author abin
  * @date 2024/8/1 11:11
  */
@@ -21,15 +22,14 @@ public class JWTUtils {
     /**
      * 生成token
      * @param claims 要加密的内容(payload)
-     * @return
+     * @return token
      */
     public static String generateToken(Map<String, Object> claims){
-        String token = Jwts.builder()
+        return Jwts.builder()
                 .addClaims(claims)
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .setExpiration(new Date(System.currentTimeMillis() + expire))
                 .compact();
-        return token;
     }
 
     public static Claims parseToken(String token) throws ExpiredJwtException {

@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
+ * 订单信息
  * @author abin
  * @date 2024/8/8 10:47
  */
@@ -53,6 +54,10 @@ public class Order {
      * 对应用户基本信息
      */
     private User user;
+
+    private String month;
+
+    private Integer orderCount;
 
     public Order(String orderNumber, Integer orderUserId, BigDecimal orderTotalAmount, Integer orderStatus) {
         this.orderNumber = orderNumber;

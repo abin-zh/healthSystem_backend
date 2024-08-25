@@ -43,6 +43,7 @@ public class StaffServiceImpl implements StaffService{
 
     private DepartmentMapper deptMapper;
 
+    @Autowired
     public StaffServiceImpl(StaffMapper staffMapper, MenuMapper menuMapper, RoleMapper roleMapper, DepartmentMapper deptMapper) {
         this.staffMapper = staffMapper;
         this.menuMapper = menuMapper;
@@ -69,7 +70,7 @@ public class StaffServiceImpl implements StaffService{
         String token = JWTUtils.generateToken(data);
         session.removeAttribute("code");
 
-        return ResponseDTO.success("登录成功", new InfoVO<Staff>(token, staff));
+        return ResponseDTO.success("登录成功", new InfoVO<>(token, staff));
     }
 
     @Override
@@ -111,14 +112,15 @@ public class StaffServiceImpl implements StaffService{
         return ResponseDTO.success("获取成功", new EditNeedDTO<>(depts, roles, null, null, null));
     }
 
+    /**
+     * 添加工作人员
+     * 1.判空
+     * 2.两次输入密码比对
+     * 3.查看是否管理员是否已经存在
+     * 4.添加管理员
+     */
     @Override
     public ResponseDTO addOneStaff(Staff staff) {
-        /**
-         * 1.判空
-         * 2.两次输入密码比对
-         * 3.查看是否管理员是否已经存在
-         * 4.添加管理员
-         */
         if(StrUtils.hasEmpty(staff.getStaffName(), staff.getStaffAccount(), staff.getStaffEmail(), staff.getStaffPassword(), staff.getStaffCPassword())
                 || staff.getStaffDeptId() == null || staff.getStaffRoleId() == null){
             return ResponseDTO.fail("添加失败，未提供需求信息");
