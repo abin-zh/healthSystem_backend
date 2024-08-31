@@ -153,18 +153,24 @@ public class RoleServiceImpl implements RoleService{
      * @throws AddException 添加异常
      */
     private void addPerm(Role role) throws AddException {
-        for (Integer itemRmId : role.getItemRmIds()) {
-            int result = permissionMapper.deleteByPermMenuIdAndPermRoleId(itemRmId, role.getRoleId());
-            if(result <= 0){
-                throw new AddException("添加角色菜单时未知错误", role.getRoleId());
+        //删除全部相关id
+        try{
+            int res = permissionMapper.deleteByPermRoleId(role.getRoleId());
+            if(res <= 0){
+                throw new AddException("删除角色菜单时错误", role.getRoleId());
             }
-        }
 
-        for (Integer itemAddId : role.getItemAddIds()) {
-            int result = permissionMapper.addOnePermission(itemAddId, role.getRoleId());
-            if(result <= 0){
-                throw new AddException("添加角色菜单时未知错误", role.getRoleId());
+            for (Integer itemAddId : role.getItemAddIds()) {
+                int result = permissionMapper.addOnePermission(itemAddId, role.getRoleId());
+                if(result <= 0){
+                    throw new AddException("添加角色菜单时未知错误", role.getRoleId());
+                }
             }
+        } catch (Exception e){
+            if(e instanceof AddException){
+                throw e;
+            }
+            throw new AddException("添加角色菜单时异常", role.getRoleId());
         }
     }
 }

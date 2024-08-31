@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 @PropertySource("classpath:alipay.properties")
 public class AliConfig {
 
-    @Value("${notifiyUrl}")
+    @Value("${notifyUrl}")
     private String notifyUrl;
 
 }
