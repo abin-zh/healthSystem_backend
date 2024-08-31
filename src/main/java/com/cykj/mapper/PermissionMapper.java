@@ -12,4 +12,7 @@ public interface PermissionMapper {
 
     int deleteByPermMenuIdAndPermRoleId(@Param("permMenuId")Integer permMenuId,@Param("permRoleId")Integer permRoleId);
 
+    int deleteByPermRoleId(@Param("permRoleId")Integer permRoleId);
+
+
 }
