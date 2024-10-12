@@ -192,7 +192,7 @@ public class UsersServiceImpl implements UsersService {
         for (User user : users) {
             if (StrUtils.hasEmpty(
                     user.getUserName(), user.getUserPhone(), user.getUserIdCard(),
-                    user.getUserEmail()) && user.getUserGender() == null && user.getUserBirthday() == null) {
+                    user.getUserEmail()) || user.getUserGender() == null || user.getUserBirthday() == null) {
                 throw new AddException("有数据为空", user.getUserId());
             } else if (user.getUserPhone().length() != 11 && user.getUserIdCard().length() != 18) {
                 throw new AddException(user.getUserName() + "的手机号或身份证号格式不正确", user.getUserId());
