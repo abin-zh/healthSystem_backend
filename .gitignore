@@ -39,3 +39,7 @@ build/
 
 ### other ##
 /src/main/resources/config/mail.setting
+.env
+.env.local
+.idea/dataSources.xml
+.idea/dataSources.local.xml
